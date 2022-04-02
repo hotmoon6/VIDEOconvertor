@@ -70,7 +70,7 @@ async def screenshot(event, msg):
     captions = []
     n = [8, 7, 6, 5, 4, 3, 2, 1.5, 1.25, 1.10]
     duration = (video_metadata(name))["duration"]
-    for i in range(10):
+    for i in range(30):
         sshot = await ssgen(name, duration/n[i]) 
         if sshot is not None:
             pictures.append(sshot)
