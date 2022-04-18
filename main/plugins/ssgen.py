@@ -68,7 +68,7 @@ async def screenshot(event, msg):
         return await edit.edit(f"An error occured while downloading.") 
     pictures = []
     captions = []
-    n = [220, 215, 210, 202, 199, 197, 193, 189, 185, 183, 179, 174, 163, 157, 153, 149, 142, 139, 130, 127, 123, 119, 115, 110, 102, 99, 96, 91, 87, 84, 80, 76, 71, 68, 60, 58, 53, 48, 40, 36, 31, 28, 22, 17, 14, 11, 9, 7, 4, 2]
+    n = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50]
     duration = (video_metadata(name))["duration"]
     for i in range(50):
         sshot = await ssgen(name, duration/n[i]) 
