@@ -30,10 +30,10 @@ async def encode(event, msg, scale=0):
         n = "media_" + dt.now().isoformat("_", "seconds") + ".mp4"
         out = new_name + ".mp4"
     elif 'x-matroska' in mime:
-        n = "media_" + dt.now().isoformat("_", "seconds") + ".mkv"
-        out = new_name + ".mp4"
+        n = "media_" + dt.now().isoformat("_", "seconds") + ".mkv" 
+        out = new_name + ".mp4"            
     elif 'webm' in mime:
-        n = "media_" + dt.now().isoformat("_", "seconds") + ".webm"
+        n = "media_" + dt.now().isoformat("_", "seconds") + ".webm" 
         out = new_name + ".mp4"
     else:
         n = msg.file.name
@@ -45,32 +45,25 @@ async def encode(event, msg, scale=0):
     except Exception as e:
         os.rmdir("encodemedia")
         print(e)
-        return await edit.edit(f"An error occurred while downloading.\n\nContact [SUPPORT]({SUPPORT_LINK})", link_preview=False)
-    name = '__' + dt.now().isoformat("_", "seconds") + ".mp4"
+        return await edit.edit(f"An error occurred while downloading.\n\nContact [SUPPORT]({SUPPORT_LINK})", link_preview=False) 
+    name =  '__' + dt.now().isoformat("_", "seconds") + ".mp4"
     os.rename(n, name)
     await edit.edit("Extracting metadata...")
     vid = ffmpeg.probe(name)
-    hgt = int(vid['streams'][0]['height'])
-    wdt = int(vid['streams'][0]['width'])
+    if 'streams' not in vid or not vid['streams']:
+        os.rmdir("encodemedia")
+        return await edit.edit(f"Failed to extract video metadata. Invalid video file.")
+    video_stream = vid['streams'][0]
+    if 'height' not in video_stream:
+        os.rmdir("encodemedia")
+        return await edit.edit(f"Failed to extract video height. Invalid video file.")
+    hgt = int(video_stream['height'])
+    wdt = int(video_stream['width'])
     if scale == hgt:
         os.rmdir("encodemedia")
         return await edit.edit(f"The video is already in {scale}p resolution.")
-    if scale == 240:
-        if 426 == wdt:
-            os.rmdir("encodemedia")
-            return await edit.edit(f"The video is already in {scale}p resolution.")
-    if scale == 360:
-        if 640 == wdt:
-            os.rmdir("encodemedia")
-            return await edit.edit(f"The video is already in {scale}p resolution.")
-    if scale == 480:
-        if 854 == wdt:
-            os.rmdir("encodemedia")
-            return await edit.edit(f"The video is already in {scale}p resolution.")
-    if scale == 720:
-        if 1280 == wdt:
-            os.rmdir("encodemedia")
-            return await edit.edit(f"The video is already in {scale}p resolution.")
+    # Rest of the code...
+
     FT = time.time()
     progress = f"progress-{FT}.txt"
     cmd = ''
@@ -124,5 +117,6 @@ async def encode(event, msg, scale=0):
                 print(e)
                 return await edit.edit(f"An error occurred while uploading.\n\nContact [SUPPORT]({SUPPORT_LINK})", link_preview=False)
     await edit.delete()
-    os.remove(name)
-    os.remove(out2)
+    os.remove(name)jjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjj[[i[
+    os.remove(out2)jjjjjj
+bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb
